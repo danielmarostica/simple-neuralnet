@@ -7,8 +7,7 @@ learning_rate = 0.001
 
 # create fake data
 x = np.arange(-1, 1, 0.01)
-y_func = lambda x: x**3
-y = y_func(x)
+y = x ** 3
 
 # initialize weights & biases
 w1 = random.normalvariate(0, 1)
@@ -27,9 +26,9 @@ b4 = 0
 activation_func = lambda x: np.log(1 + np.e ** x)
 
 # pre-node function
-f1 = lambda x: w1*x + b1
-f2 = lambda x: w2*x + b2
-f3 = lambda x: w3*x + b3
+f1 = lambda x: w1 * x + b1
+f2 = lambda x: w2 * x + b2
+f3 = lambda x: w3 * x + b3
 
 # first run through network
 y_pred = activation_func(f1(x)) * w4 + activation_func(f2(x)) * w5 + activation_func(f3(x)) * w6 + b4
