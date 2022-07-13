@@ -7,13 +7,16 @@ torch.set_num_threads(8) # multiprocessing
 # choose learning rate
 learning_rate = 0.1
 
+
 # create fake data
 x = np.arange(-1, 1, 0.01)
 y = x ** 3
 
+
 # transform data into float32 tensors
 x = torch.from_numpy(x).float()
 y = torch.from_numpy(y).float()
+
 
 # choose an activation function
 activation_func = nn.Softplus()
@@ -28,6 +31,7 @@ n_input = 3 # number of neurons
 n_output = 200 # output_size
 linear_transformation_2 = nn.Linear(n_input, n_output) # includes random weights and biases
 
+
 # define model
 model = nn.Sequential(
     linear_transformation_1,
@@ -35,8 +39,10 @@ model = nn.Sequential(
     linear_transformation_2
 )
 
+
 loss_function = nn.L1Loss() # mean absolute error (couldn't find sum of squared errors to mimmick the "from_scratch" version)
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate) # makes gradient descent even better and faster
+
 
 loss_history = []
 epochs = 5000
@@ -56,8 +62,10 @@ for epoch in range(epochs):
     # find global minima
     optimizer.step()
 
+
 with torch.no_grad(): # get rid of gradients
     y_pred = model(x)
+
 
 # plot result
 plt.figure(figsize=(10, 10))

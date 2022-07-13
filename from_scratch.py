@@ -5,6 +5,7 @@ import random
 # choose learning rate
 learning_rate = 0.001
 
+
 # create fake data
 x = np.arange(-1, 1, 0.01)
 y = x ** 3
@@ -27,7 +28,6 @@ b4 = 0
 # choose an activation function
 activation_func = lambda x: np.log(1 + np.e ** x)
 
-
 # pre-node function
 f1 = lambda x: w1 * x + b1
 f2 = lambda x: w2 * x + b2
@@ -49,6 +49,7 @@ for epoch in range(epochs):
     # save loss
     loss_history.append(loss_func(y, y_pred))
 
+
     # gradient descent (derivative of sum of squared residuals)
     dSSR_w1 = (-2 * (y - y_pred) * w4 * x * np.e ** f1(x) / (1 + np.e ** f1(x))).sum()
     dSSR_w2 = (-2 * (y - y_pred) * w5 * x * np.e ** f2(x) / (1 + np.e ** f2(x))).sum()
@@ -61,6 +62,7 @@ for epoch in range(epochs):
     dSSR_b2 = (-2 * (y - y_pred) * w5 * np.e ** f2(x) / (1 + np.e ** f2(x))).sum()
     dSSR_b3 = (-2 * (y - y_pred) * w6 * np.e ** f3(x) / (1 + np.e ** f3(x))).sum()
     dSSR_b4 = (-2 * (y - y_pred)).sum()
+
 
     # step sizes
     step_size_dSSR_w1 = dSSR_w1 * learning_rate
@@ -75,6 +77,7 @@ for epoch in range(epochs):
     step_size_dSSR_b3 = dSSR_b3 * learning_rate
     step_size_dSSR_b4 = dSSR_b4 * learning_rate
 
+
     # updating weights & biases
     w1 = w1 - step_size_dSSR_w1
     w2 = w2 - step_size_dSSR_w2
@@ -88,8 +91,10 @@ for epoch in range(epochs):
     b3 = b3 - step_size_dSSR_b3
     b4 = b4 - step_size_dSSR_b4
     
+    
     # run values through network
     y_pred = activation_func(f1(x)) * w4 + activation_func(f2(x)) * w5 + activation_func(f3(x)) * w6 + b4
+
 
 # plot result
 plt.figure(figsize=(10, 10))
