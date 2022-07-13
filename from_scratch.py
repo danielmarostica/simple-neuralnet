@@ -9,6 +9,7 @@ learning_rate = 0.001
 x = np.arange(-1, 1, 0.01)
 y = x ** 3
 
+
 # initialize weights & biases
 w1 = random.normalvariate(0, 1)
 w2 = random.normalvariate(0, 1)
@@ -22,21 +23,33 @@ b2 = 0
 b3 = 0
 b4 = 0
 
+
 # choose an activation function
 activation_func = lambda x: np.log(1 + np.e ** x)
+
 
 # pre-node function
 f1 = lambda x: w1 * x + b1
 f2 = lambda x: w2 * x + b2
 f3 = lambda x: w3 * x + b3
 
+
 # first run through network
 y_pred = activation_func(f1(x)) * w4 + activation_func(f2(x)) * w5 + activation_func(f3(x)) * w6 + b4
 
-epochs = 10000
+
+epochs = 50000
+loss_history = []
 for epoch in range(epochs):
 
-    # gradient descent
+    # simple loss function (sum of squared residuals)
+    def loss_func(y, y_pred):
+        return sum((y - y_pred) ** 2)
+
+    # save loss
+    loss_history.append(loss_func(y, y_pred))
+
+    # gradient descent (derivative of sum of squared residuals)
     dSSR_w1 = (-2 * (y - y_pred) * w4 * x * np.e ** f1(x) / (1 + np.e ** f1(x))).sum()
     dSSR_w2 = (-2 * (y - y_pred) * w5 * x * np.e ** f2(x) / (1 + np.e ** f2(x))).sum()
     dSSR_w3 = (-2 * (y - y_pred) * w6 * x * np.e ** f3(x) / (1 + np.e ** f3(x))).sum()
@@ -83,3 +96,11 @@ plt.figure(figsize=(10, 10))
 plt.plot(x, y, label='Data')
 plt.plot(x, y_pred, '--', label='Neural Network')
 plt.legend(frameon=False)
+plt.savefig('scratch_output.jpg')
+
+# plot loss
+plt.figure(figsize=(10, 10))
+plt.plot(range(epochs), loss_history)
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.savefig('scratch_loss.jpg')
