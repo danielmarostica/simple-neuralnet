@@ -56,7 +56,7 @@ for epoch in range(epochs):
     # find global minima
     optimizer.step()
 
-with torch.no_grad():
+with torch.no_grad(): # get rid of gradients
     y_pred = model(x)
 
 # plot result
